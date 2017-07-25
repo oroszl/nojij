@@ -1,0 +1,6 @@
+se grid
+se xr [0.5:3.3]
+p 'Fe.jij-kset-10-eset-42'  u ($1/2.87):2  tit 'kset = 10 eset =  42',\
+  'Fe.jij-kset-10-eset-142' u ($1/2.87):2  tit 'kset = 10 eset = 142',\
+  'Fe.jij-kset-40-eset-42'  u ($9/2.87):10 tit 'kset = 40 eset =  42',\
+  'Fe.jij-kset-40-eset-142' u ($1/2.87):2  tit 'kset = 40 eset = 142'
