@@ -7,6 +7,7 @@ from mpi4py import MPI
 import argparse
 from itertools import permutations, product
 from timeit import default_timer as timer
+from scipy.special import roots_legendre
 
 # define some useful functions
 def hsk(dh,k=(0,0,0)):
@@ -23,25 +24,32 @@ def hsk(dh,k=(0,0,0)):
 
     return HKU,HKD,SK
 
-def make_contour(emin=-20,emax=0.0,enum=42,p=10):
+def make_contour(emin=-20,emax=0.0,enum=42,p=150):
     '''
-    A simple routine to generate energy contours
+    A more sophisticated contour generator
     '''
-    R  = (emax-emin)/2;
-    z0 = (emax+emin)/2;
-    ie = (np.exp(-np.linspace(0,p,enum))-1);
-    ze = z0-R*np.exp(1.0j*ie*np.pi);
-    we = -1.0j*R*np.pi*np.exp(1.0j*np.pi*ie);
+    
+    x,wl = roots_legendre(enum)
+    R  = (emax-emin)/2
+    z0 = (emax+emin)/2
+    y1 = -np.log(1+np.pi*p)
+    y2 = 0
 
+    y   = (y2-y1)/2*x+(y2+y1)/2
+    phi = (np.exp(-y)-1)/p
+    ze  = z0+R*np.exp(1j*phi)
+    we  = -(y2-y1)/2*np.exp(-y)/p*1j*(z-z0)*wl
+    
     class ccont:
         #just an empty container class
         pass
-    cont    = ccont();
-    cont.R  = R;
-    cont.z0 = z0;
-    cont.ie = ie;
-    cont.ze = ze;
-    cont.we = we;
+    cont    = ccont()
+    cont.R  = R
+    cont.z0 = z0
+    cont.ze = ze
+    cont.we = we
+    cont.enum = enum
+        
     return cont
 #----------------------------------------------------------------------
 
@@ -131,9 +139,9 @@ if rank == root_node:
 # and sisil shifts E_F to 0 !
 cont = make_contour(emin=args.Ebot,enum=args.eset,p=args.esetp)
 if (rank==root_node) and ('E' in args.usetqdm):
- eran = tqdm.tqdm(range(len(cont.ie)),desc='E loop')
+ eran = tqdm.tqdm(cont.ze,desc='E loop')
 else:
- eran = range(len(cont.ie))
+ eran = cont.ze
 #----------------------------------------------------------------------
 
 # generating onsite matrix and overalp elements of all the atoms in the unitcell
@@ -155,9 +163,7 @@ for i in range(len(dh.atoms)):
 #----------------------------------------------------------------------
 
 # sampling the integrand on the contour
-for e_i in eran:
-
-    ze = cont.ze[e_i]
+for ze in eran:
 
     # reset G-s
     for pair in pairs:
