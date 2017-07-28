@@ -38,7 +38,7 @@ def make_contour(emin=-20,emax=0.0,enum=42,p=150):
     y   = (y2-y1)/2*x+(y2+y1)/2
     phi = (np.exp(-y)-1)/p
     ze  = z0+R*np.exp(1j*phi)
-    we  = -(y2-y1)/2*np.exp(-y)/p*1j*(z-z0)*wl
+    we  = -(y2-y1)/2*np.exp(-y)/p*1j*(ze-z0)*wl
     
     class ccont:
         #just an empty container class
@@ -100,15 +100,20 @@ if 'k' in args.usetqdm:
 
 # generate pairs
 NPAIRS = args.npairs # INPUT
-neibrange = np.arange(-NPAIRS,NPAIRS+1);
-[xi,yi,zi] = np.meshgrid(neibrange,neibrange,neibrange);
+if NPAIRS == 0:
+    neibrange = np.arange(0,2);
+    [xi,yi,zi] = np.meshgrid(neibrange,0,0);
+else:
+    neibrange = np.arange(-NPAIRS,NPAIRS+1);
+    [xi,yi,zi] = np.meshgrid(neibrange,neibrange,neibrange);
 neigh_uc_list = np.array([xi.flatten(),yi.flatten(),zi.flatten()]).T
 
 pairs = [] # we are going to collect usefull informations regarding the pairs in this list
            # each pair is going to have a dict 
 
 for uc in neigh_uc_list:    
-    
+    uc=np.array(uc)
+    uc.shape=(-1,)   
     if np.allclose(uc,[0,0,0]):
         # in the middle unit cell only nonequivalent neighbors are defined
         atran = permutations(range(len(dh.atoms)),2)
@@ -124,8 +129,8 @@ for uc in neigh_uc_list:
         slij   = [slice( *(lambda x:[min(x),max(x)+1])(dh.a2o(i,all=True)) ),  # slices for 
                   slice( *(lambda x:[min(x),max(x)+1])(dh.a2o(j,all=True)) )], # appropriate orbitals           
         rirj   = [dh.axyz()[i],dh.axyz()[j]], # real space vectors of atoms in the unit cell
-        Rij    = np.dot(dh.cell,uc),          # real space distance vector between unit cells
-        rij    = np.dot(dh.cell,uc)-dh.axyz()[i]+dh.axyz()[j], # real space vector between atoms
+        Rij    = np.dot(uc,dh.cell),          # real space distance vector between unit cells
+        rij    = np.dot(uc,dh.cell)-dh.axyz()[i]+dh.axyz()[j], # real space vector between atoms
         Jijz   = [], # in this empty list are we going to gather the integrad of the energy integral
         Jij    = 0   # the final results of the calculation are going to be here on the root node
             ))
@@ -176,13 +181,14 @@ for ze in eran:
 
     # doing parallel BZ integral
     for k in kpcs[rank]:
-
+        k=np.array(k)
+        k.shape=(-1,)
         HKU,HKD,SK = hsk(dh,k)
         Gku = nl.inv((ze*SK-HKU))
         Gkd = nl.inv((ze*SK-HKD))
 
         for pair in pairs:
-            phase=np.exp(1j*np.dot(np.dot(dh.rcell,k),pair['Rij']))
+            phase=np.exp(1j*np.dot(np.dot(k,dh.rcell),pair['Rij']))
             si,sj=pair['slij']
             # Fourier transform to real space
             pair['Guij_tmp'] +=  Gku[si,sj]*phase*wk # ij gets exp(+i k R) 
@@ -210,7 +216,7 @@ for ze in eran:
 if rank==root_node:
     for pair in pairs:
         pair['Jijz'] = np.array(pair['Jijz']) 
-        pair['Jij']  = np.trapz(np.imag(pair['Jijz']*cont.we)/(2*np.pi),cont.ie)
+        pair['Jij']  = np.trapz(np.imag(pair['Jijz']*cont.we)/(2*np.pi))
     end = timer()
     np.savetxt(args.outfile,
                np.array([ [nl.norm(p['rij']),
