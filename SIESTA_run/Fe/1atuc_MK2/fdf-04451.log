@@ -78,9 +78,9 @@ MD.UseStructFile              F     # default value
 LatticeConstant          5.423516139           Bohr
 # above item originally: LatticeConstant          2.870000000     Ang       
 %block LatticeVectors
+  1.00000   0.000000  0.000000
+  0.00000   1.000000  0.000000
   0.50000   0.500000  0.500000
-  0.50000  -0.500000  0.500000
- -0.50000   0.500000  0.500000
 AtomicCoordinatesFormat     ScaledCartesian                                                                 
 NumberOfAtoms              1
 ZM.UnitsLength     Bohr           # default value
@@ -322,14 +322,6 @@ Diag.Use2D              T     # default value
 SingleExcitation              F     # default value
 OccupationFunction     FD     # default value
 OccupationFunction     FD     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
-Use.Blocked.WriteMat              F     # default value
 Use.Blocked.WriteMat              F     # default value
 Use.Blocked.WriteMat              F     # default value
 Use.Blocked.WriteMat              F     # default value
