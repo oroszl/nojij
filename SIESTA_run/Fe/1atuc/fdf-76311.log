@@ -78,11 +78,11 @@ MD.UseStructFile              F     # default value
 LatticeConstant          5.423516139           Bohr
 # above item originally: LatticeConstant          2.870000000     Ang       
 %block LatticeVectors
-  2.00000   0.000000  0.000000
-  0.00000   2.000000  0.000000
-  1.00000   1.000000  1.000000
+  0.50000   0.500000  0.500000
+  0.50000  -0.500000  0.500000
+ -0.50000   0.500000  0.500000
 AtomicCoordinatesFormat     ScaledCartesian                                                                 
-NumberOfAtoms              8
+NumberOfAtoms              1
 ZM.UnitsLength     Bohr           # default value
 ZM.UnitsAngle     rad            # default value
 ZM.ForceTolLength         0.1555740000E-02 Ry/Bohr     # default value
@@ -92,13 +92,6 @@ ZM.MaxDisplAngle         0.3000000000E-02 rad     # default value
 ZM.CalcAllForces              F     # default value
 %block AtomicCoordinatesAndAtomicSpecies
    0.000000000000    0.000000000000    0.000000000000  1
-   1.000000000000    0.000000000000    0.000000000000  1
-   0.000000000000    1.000000000000    0.000000000000  1
-   1.000000000000    1.000000000000    0.000000000000  1
-   0.500000000000    0.500000000000    0.500000000000  1
-   1.500000000000    0.500000000000    0.500000000000  1
-   0.500000000000    1.500000000000    0.500000000000  1
-   1.500000000000    1.500000000000    0.500000000000  1
 MD.UseSaveXV              F     # default value
 MD.UseSaveZM              F     # default value
 WriteCoorInitial              T     # default value
@@ -205,7 +198,7 @@ MD.TauRelax          100.0000000     fs     # default value
 MD.BulkModulus         0.6797730000E-02 Ry/Bohr**3     # default value
 MD.FCDispl         0.4000000000E-01 Bohr     # default value
 MD.FCfirst         1     # default value
-MD.FClast         8     # default value
+MD.FClast         1     # default value
 UseSpatialDecomposition              F     # default value
 UseDomainDecomposition              F     # default value
 SCF.Mix.Spin     all     # default value
@@ -298,8 +291,8 @@ ProcessorGridX         1     # default value
 ProcessorGridY         1     # default value
 ProcessorGridZ         1     # default value
 processorY         2     # default value
-blocksize        24     # default value
-NumberOfEigenStates       120     # default value
+blocksize         4     # default value
+NumberOfEigenStates        15     # default value
 TimeReversalSymmetryForKpoints              T     # default value
 kgrid_cutoff          28.34590317           Bohr
 # above item originally: kgrid_cutoff          15.00000000     Ang       
@@ -329,6 +322,10 @@ Diag.Use2D              T     # default value
 SingleExcitation              F     # default value
 OccupationFunction     FD     # default value
 OccupationFunction     FD     # default value
+Use.Blocked.WriteMat              F     # default value
+Use.Blocked.WriteMat              F     # default value
+Use.Blocked.WriteMat              F     # default value
+Use.Blocked.WriteMat              F     # default value
 Use.Blocked.WriteMat              F     # default value
 Use.Blocked.WriteMat              F     # default value
 Use.Blocked.WriteMat              F     # default value

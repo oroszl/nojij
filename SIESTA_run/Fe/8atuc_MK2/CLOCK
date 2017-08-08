@@ -1,24 +1,19 @@
 Start of run             0.000
--------------- end of scf step            45.928
--------------- end of scf step            63.018
--------------- end of scf step            80.105
--------------- end of scf step            97.337
--------------- end of scf step           114.441
--------------- end of scf step           131.605
--------------- end of scf step           148.982
--------------- end of scf step           166.436
--------------- end of scf step           184.102
--------------- end of scf step           201.528
--------------- end of scf step           218.711
--------------- end of scf step           235.648
--------------- end of scf step           252.511
--------------- end of scf step           269.348
--------------- end of scf step           286.352
--------------- end of scf step           304.009
--------------- end of scf step           320.854
--------------- end of scf step           337.645
--------------- end of scf step           354.472
--------------- end of scf step           371.300
--------------- end of scf step           388.104
---- end of geometry step           411.570
-End of run           411.709
+-------------- end of scf step            48.245
+-------------- end of scf step            65.820
+-------------- end of scf step            83.063
+-------------- end of scf step           100.261
+-------------- end of scf step           117.956
+-------------- end of scf step           135.261
+-------------- end of scf step           152.733
+-------------- end of scf step           169.867
+-------------- end of scf step           187.218
+-------------- end of scf step           204.363
+-------------- end of scf step           222.049
+-------------- end of scf step           239.432
+-------------- end of scf step           256.735
+-------------- end of scf step           274.083
+-------------- end of scf step           291.411
+-------------- end of scf step           308.771
+--- end of geometry step           332.975
+End of run           333.089

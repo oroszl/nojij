@@ -42,16 +42,6 @@ Number_of_species              1
 %block Chemical_species_label
    1  26  Fe
 %endblock Chemical_species_label
-%block PAO.Basis
-   Fe  2
-   0  2  P
-   6. 0.
-   2  2
- (Backspace to) |  2  2|
-   2  2
-   0. 0.
-%endblock PAO.Basis
-%endblock PAO.Basis
 LDAU.ProjectorGenerationMethod         2     # default value
 LDAU.EnergyShift         0.5000000000E-01 Ry     # default value
 LDAU.CutoffNorm         0.9000000000         # default value
@@ -65,8 +55,7 @@ LDAU.FirstIteration              F     # default value
 FilterCutoff          0.000000000     Ry     # default value
 FilterTol          0.000000000     Ry     # default value
 KB.Rmax          6.000000000     Bohr     # default value
-PAO.EnergyShift         0.3674899422E-02         Ry
-# above item originally: PAO.EnergyShift          50.00000000     meV       
+PAO.EnergyShift         0.2000000000E-01 Ry     # default value
 PAO.SplitTailNorm              F     # default value
 PAO.FixSplitTable              F     # default value
 PAO.NewSplitCode              F     # default value
@@ -89,11 +78,11 @@ MD.UseStructFile              F     # default value
 LatticeConstant          5.423516139           Bohr
 # above item originally: LatticeConstant          2.870000000     Ang       
 %block LatticeVectors
-  0.50000   0.500000  0.500000
-  0.50000  -0.500000  0.500000
-  0.50000   0.500000 -0.500000
-AtomicCoordinatesFormat     Fractional                                                                      
-NumberOfAtoms              1
+  1.00000   0.000000  0.000000
+  0.00000   1.000000  0.000000
+  0.0000    0.000000  1.000000
+AtomicCoordinatesFormat     ScaledCartesian                                                                 
+NumberOfAtoms              2
 ZM.UnitsLength     Bohr           # default value
 ZM.UnitsAngle     rad            # default value
 ZM.ForceTolLength         0.1555740000E-02 Ry/Bohr     # default value
@@ -103,11 +92,12 @@ ZM.MaxDisplAngle         0.3000000000E-02 rad     # default value
 ZM.CalcAllForces              F     # default value
 %block AtomicCoordinatesAndAtomicSpecies
    0.000000000000    0.000000000000    0.000000000000  1
+   0.500000000000    0.500000000000    0.500000000000  1
 MD.UseSaveXV              F     # default value
 MD.UseSaveZM              F     # default value
 WriteCoorInitial              T     # default value
-MD.TypeOfRun     cg                                                                              
-MD.TypeOfRun     cg                                                                              
+MD.TypeOfRun     none     # default value
+MD.TypeOfRun     none     # default value
 MaxBondDistance          6.000000000     Bohr     # default value
 LatticeConstant          5.423516139           Bohr
 # above item originally: LatticeConstant          2.870000000     Ang       
@@ -116,7 +106,7 @@ WriteCoorXmol              F     # default value
 HSetupOnly              F     # default value
 LongOutput              F     # default value
 WriteDenchar              F     # default value
-WriteMullikenPop              1
+WriteMullikenPop         0     # default value
 WriteHirshfeldPop              F     # default value
 WriteVoronoiPop              F     # default value
 PartialChargesAtEveryGeometry              F     # default value
@@ -125,7 +115,7 @@ MeshCutoff          2000.000000             Ry
 # above item originally: MeshCutoff          2000.000000     Ry        
 NetCharge          0.000000000         # default value
 MinSCFIterations         0     # default value
-MaxSCFIterations             40
+MaxSCFIterations        50     # default value
 SCFMustConverge              F     # default value
 TS.MixH              T     # default value
 MixHamiltonian              T     # default value
@@ -163,7 +153,7 @@ MonitorForcesInSCF              F     # default value
 SCF.MonitorForces              F     # default value
 DM.InitSpin.AF              F     # default value
 UseSaveData              F     # default value
-DM.UseSaveDM              T
+DM.UseSaveDM              F     # default value
 NeglNonOverlapInt              F     # default value
 SolutionMethod     diagon                                                                          
 Diag.DivideAndConquer              T     # default value
@@ -187,14 +177,12 @@ ON.ChemicalPotentialTemperature         0.5000000000E-01 Ry     # default value
 ON.ChemicalPotentialOrder       100     # default value
 MD.VariableCell              F     # default value
 compat-pre-v4-dynamics              F     # default value
-MD.TypeOfRun     cg                                                                              
+MD.TypeOfRun     cg     # default value
 MD.UseSaveCG              F     # default value
 Optim.Broyden              F     # default value
-MD.NumCGsteps              0
-MD.MaxCGDispl         0.1889726878           Bohr
-# above item originally: MD.MaxCGDispl         0.1000000000     Ang       
-MD.MaxForceTol         0.1555739508E-02    Ry/Bohr
-# above item originally: MD.MaxForceTol         0.4000000000E-01 eV/Ang    
+MD.NumCGsteps         0     # default value
+MD.MaxCGDispl         0.2000000000     Bohr     # default value
+MD.MaxForceTol         0.1555740000E-02 Ry/Bohr     # default value
 MD.MaxStressTol         0.6797730000E-04 Ry/Bohr**3     # default value
 MD.InitialTimeStep         1     # default value
 MD.FinalTimeStep         1     # default value
@@ -211,7 +199,7 @@ MD.TauRelax          100.0000000     fs     # default value
 MD.BulkModulus         0.6797730000E-02 Ry/Bohr**3     # default value
 MD.FCDispl         0.4000000000E-01 Bohr     # default value
 MD.FCfirst         1     # default value
-MD.FClast         1     # default value
+MD.FClast         2     # default value
 UseSpatialDecomposition              F     # default value
 UseDomainDecomposition              F     # default value
 SCF.Mix.Spin     all     # default value
@@ -258,11 +246,11 @@ UseNewDiagk              F     # default value
 WriteBands              F     # default value
 WriteKbands              F     # default value
 WriteEigenvalues              F     # default value
-WriteCoorStep              T     # label by itself
+WriteCoorStep              F     # default value
 WriteMDhistory              F     # default value
-WriteMDXmol              F     # default value
+WriteMDXmol              T     # default value
 Write.Graphviz     none     # default value
-WriteCoorStep              T     # label by itself
+WriteCoorStep              F     # default value
 SaveHS              T
 FixAuxiliaryCell              F     # default value
 NaiveAuxiliaryCell              F     # default value
@@ -304,44 +292,19 @@ ProcessorGridX         1     # default value
 ProcessorGridY         1     # default value
 ProcessorGridZ         1     # default value
 processorY         2     # default value
-blocksize         4     # default value
-NumberOfEigenStates        15     # default value
+blocksize         8     # default value
+NumberOfEigenStates        30     # default value
 TimeReversalSymmetryForKpoints              T     # default value
 kgrid_cutoff          28.34590317           Bohr
 # above item originally: kgrid_cutoff          15.00000000     Ang       
-%block BandLines
-BandLines
-BandLinesScale     pi/a     # default value
-LatticeConstant          5.423516139           Bohr
-# above item originally: LatticeConstant          2.870000000     Ang       
-%block BandLines
-   1  0.00000   0.000000  0.000000  \Gamma
-  40  2.00000   0.000000  0.000000  H
-  28  1.00000   1.000000  0.000000  N
-  28  0.00000   0.000000  0.000000  \Gamma
-  34  1.00000   1.000000  1.000000  P
-%endblock BandLines
-%block BandLines
-BandLines
-BandLinesScale     pi/a     # default value
-LatticeConstant          5.423516139           Bohr
-# above item originally: LatticeConstant          2.870000000     Ang       
-%block BandLines
-   1  0.00000   0.000000  0.000000  \Gamma
-  40  2.00000   0.000000  0.000000  H
-  28  1.00000   1.000000  0.000000  N
-  28  0.00000   0.000000  0.000000  \Gamma
-  34  1.00000   1.000000  1.000000  P
-%endblock BandLines
 LongOutput              F     # default value
 WriteWaveFunctions              F     # default value
 ForceAuxCell              F     # default value
-AtomicCoordinatesFormat     Fractional                                                                      
-AtomCoorFormatOut     Fractional                 # default value
+AtomicCoordinatesFormat     ScaledCartesian                                                                 
+AtomCoorFormatOut     ScaledCartesian            # default value
 LatticeConstant          5.423516139           Bohr
 # above item originally: LatticeConstant          2.870000000     Ang       
 Sonly              F     # default value
-File.DM.Init     Fe.DM     # default value
 Sonly              F     # default value
 Debug.DHSCF              F     # default value
 MeshSubDivisions         2     # default value
@@ -382,6 +345,5 @@ Grid.CellSampling     # not found as list
 Read-H-from-file              F     # default value
 WriteCoorXmol              F     # default value
 WriteCoorCerius              F     # default value
-WFS.Write.For.Bands              F     # default value
 BasisPressure         0.2000000000     GPa     # default value
 OpticalCalculation              F     # default value

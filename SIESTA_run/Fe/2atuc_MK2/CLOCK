@@ -1,24 +1,20 @@
 Start of run             0.000
--------------- end of scf step            14.589
--------------- end of scf step            20.932
--------------- end of scf step            27.055
--------------- end of scf step            32.940
--------------- end of scf step            38.821
--------------- end of scf step            45.104
--------------- end of scf step            51.361
--------------- end of scf step            57.698
--------------- end of scf step            64.203
--------------- end of scf step            69.910
--------------- end of scf step            75.589
--------------- end of scf step            81.404
--------------- end of scf step            87.126
--------------- end of scf step            92.831
--------------- end of scf step            99.062
--------------- end of scf step           104.738
--------------- end of scf step           110.621
--------------- end of scf step           116.325
--------------- end of scf step           122.018
--------------- end of scf step           127.793
--------------- end of scf step           133.492
---- end of geometry step           139.256
-End of run           139.281
+-------------- end of scf step            15.113
+-------------- end of scf step            20.713
+-------------- end of scf step            26.291
+-------------- end of scf step            32.671
+-------------- end of scf step            38.249
+-------------- end of scf step            43.850
+-------------- end of scf step            49.560
+-------------- end of scf step            55.124
+-------------- end of scf step            60.686
+-------------- end of scf step            66.236
+-------------- end of scf step            71.797
+-------------- end of scf step            77.365
+-------------- end of scf step            82.927
+-------------- end of scf step            88.698
+-------------- end of scf step            95.718
+-------------- end of scf step           101.605
+-------------- end of scf step           107.157
+--- end of geometry step           112.392
+End of run           112.421

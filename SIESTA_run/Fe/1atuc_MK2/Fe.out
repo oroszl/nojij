@@ -4,7 +4,7 @@
                            ***********************       
 
 reinit: Reading from standard input
-reinit: Dumped input in INPUT_TMP.90902
+reinit: Dumped input in INPUT_TMP.13452
 ************************** Dump of input data file ****************************
 SystemName       bcc Fe ferro GGA   # Descriptive name of the system
 SystemLabel            Fe           # Short name for naming files
@@ -60,7 +60,7 @@ NetCDF support
 NetCDF-4 support
 
 * Running on 4 nodes in parallel
->> Start of run:  28-JUL-2017  12:05:39
+>> Start of run:   8-AUG-2017   9:34:38
 
 initatom: Reading input for the pseudopotentials and atomic orbitals ----------
 Species number:   1 Atomic number:   26 Label: Fe
@@ -143,10 +143,10 @@ GHOST: No ghost state for L =  2
 GHOST: No ghost state for L =  3
 
 KBgen: Kleinman-Bylander projectors: 
-   l= 0   rc=  2.047986   el= -0.388305   Ekb=  4.259322   kbcos=  0.262992
-   l= 1   rc=  2.047986   el= -0.097543   Ekb=  2.850785   kbcos=  0.194191
-   l= 2   rc=  2.022544   el= -0.553240   Ekb=-12.567334   kbcos= -0.683368
-   l= 3   rc=  2.047986   el=  0.003178   Ekb= -1.649997   kbcos= -0.006611
+   l= 0   rc=  2.047986   el= -0.388305   Ekb=  4.264000   kbcos=  0.262873
+   l= 1   rc=  2.047986   el= -0.097543   Ekb=  2.849253   kbcos=  0.194234
+   l= 2   rc=  2.022544   el= -0.553240   Ekb=-12.559631   kbcos= -0.683748
+   l= 3   rc=  2.047986   el=  0.003178   Ekb= -1.654284   kbcos= -0.006603
 
 KBgen: Total number of  Kleinman-Bylander projectors:   16
 atom: -------------------------------------------------------------------------
@@ -167,7 +167,7 @@ SPLIT: energy shift=  0.020000 Ry
                  energy =   -0.368145
                 kinetic =    0.348842
     potential(screened) =   -0.716987
-       potential(ionic) =   -6.129340
+       potential(ionic) =   -6.129277
 
    izeta = 2
                  rmatch =    5.926225
@@ -175,7 +175,7 @@ SPLIT: energy shift=  0.020000 Ry
                  energy =   -0.314432
                 kinetic =    0.521394
     potential(screened) =   -0.835826
-       potential(ionic) =   -6.581555
+       potential(ionic) =   -6.581565
 
 SPLIT: Orbitals with angular momentum L= 2
 
@@ -190,7 +190,7 @@ SPLIT: energy shift=  0.020000 Ry
                  energy =   -0.535586
                 kinetic =    9.598648
     potential(screened) =  -10.134233
-       potential(ionic) =  -18.975344
+       potential(ionic) =  -18.978381
 
    izeta = 2
                  rmatch =    2.126247
@@ -198,7 +198,7 @@ SPLIT: energy shift=  0.020000 Ry
                  energy =   -0.064651
                 kinetic =   13.267357
     potential(screened) =  -13.332008
-       potential(ionic) =  -22.743777
+       potential(ionic) =  -22.747442
 
 POLgen: Perturbative polarization orbital with L=  1
 
@@ -209,7 +209,7 @@ POLgen: Polarization orbital for state 4s
                  energy =   -0.029040
                 kinetic =    0.656471
     potential(screened) =   -0.685511
-       potential(ionic) =   -5.738393
+       potential(ionic) =   -5.738419
 atom: Total number of Sankey-type orbitals: 15
 
 atm_pop: Valence configuration (for local Pseudopot. screening):
@@ -409,120 +409,128 @@ PhiOnMesh: nlist on node 0 =               676827
 stepf: Fermi-Dirac step function
 
 siesta: Program's energy decomposition (eV):
-siesta: Ebs     =       -72.365863
-siesta: Eions   =       711.951410
+siesta: Ebs     =       -72.384496
+siesta: Eions   =       711.951413
 siesta: Ena     =        19.722469
-siesta: Ekin    =       731.883040
-siesta: Enl     =      -443.818051
+siesta: Ekin    =       732.020041
+siesta: Enl     =      -444.141046
 siesta: Eso     =         0.000000
 siesta: Eldau   =         0.000000
-siesta: DEna    =         8.147376
-siesta: DUscf   =         1.121852
+siesta: DEna    =         8.138447
+siesta: DUscf   =         1.119007
 siesta: DUext   =         0.000000
-siesta: Exc     =      -386.031023
+siesta: Exc     =      -404.004640
 siesta: eta*DQ  =         0.000000
 siesta: Emadel  =         0.000000
 siesta: Emeta   =         0.000000
 siesta: Emolmec =         0.000000
 siesta: Ekinion =         0.000000
-siesta: Eharris =      -781.143334
-siesta: Etot    =      -780.925748
-siesta: FreeEng =      -780.927588
+siesta: Eharris =      -799.295045
+siesta: Etot    =      -799.097135
+siesta: FreeEng =      -799.098934
 
         iscf     Eharris(eV)        E_KS(eV)     FreeEng(eV)     dDmax    Ef(eV) dHmax(eV)
-   scf:    1     -781.143334     -780.925748     -780.927588  0.699487 -3.888350  4.982408
-timer: Routine,Calls,Time,% = IterSCF        1       5.628  37.90
-   scf:    2     -781.411103     -781.178879     -781.180785  0.028114 -4.213894  3.848865
-   scf:    3     -781.695893     -781.566602     -781.568654  0.079356 -5.151609  0.711042
-   scf:    4     -780.859119     -781.281970     -781.284323  0.058219 -5.568268  3.500221
-   scf:    5     -781.744068     -781.597899     -781.600547  0.060166 -5.396027  0.129572
-   scf:    6     -781.604702     -781.600948     -781.603515  0.008519 -5.408965  0.105084
-   scf:    7     -781.603337     -781.602096     -781.604578  0.002953 -5.416132  0.078074
-   scf:    8     -781.601238     -781.601658     -781.604245  0.001606 -5.415902  0.072507
-   scf:    9     -781.602959     -781.602293     -781.604838  0.001614 -5.415452  0.067965
-   scf:   10     -781.611209     -781.605919     -781.608187  0.011815 -5.403289  0.055685
-   scf:   11     -781.607638     -781.606673     -781.608874  0.004314 -5.400641  0.048030
-   scf:   12     -781.607695     -781.607112     -781.609238  0.003484 -5.398445  0.031323
-   scf:   13     -781.607183     -781.607147     -781.609273  0.000437 -5.400936  0.018836
-   scf:   14     -781.607242     -781.607191     -781.609319  0.000709 -5.401297  0.011254
-   scf:   15     -781.607397     -781.607248     -781.609400  0.002660 -5.397994  0.007764
-   scf:   16     -781.607243     -781.607243     -781.609401  0.000477 -5.397481  0.006747
-   scf:   17     -781.607256     -781.607249     -781.609406  0.000533 -5.397753  0.000717
+   scf:    1     -799.295045     -799.097135     -799.098934  0.700346 -3.868902  4.972330
+timer: Routine,Calls,Time,% = IterSCF        1       6.268  39.04
+   scf:    2     -799.580581     -799.349141     -799.351053  0.027877 -4.192183  3.847482
+   scf:    3     -799.867089     -799.736115     -799.738071  0.078327 -5.133958  0.708653
+   scf:    4     -798.929135     -799.409987     -799.412654  0.064131 -5.591882  3.677748
+   scf:    5     -799.931364     -799.764117     -799.766714  0.065496 -5.392781  0.131311
+   scf:    6     -799.765821     -799.764959     -799.767590  0.002544 -5.409530  0.072129
+   scf:    7     -799.768994     -799.766761     -799.769315  0.006564 -5.413344  0.072413
+   scf:    8     -799.775150     -799.769875     -799.772105  0.013844 -5.413229  0.043084
+   scf:    9     -799.769296     -799.769540     -799.771766  0.002934 -5.415213  0.036497
+   scf:   10     -799.771163     -799.770216     -799.772480  0.004330 -5.415431  0.036042
+   scf:   11     -799.770477     -799.770339     -799.772605  0.001009 -5.413473  0.029813
+   scf:   12     -799.770759     -799.770522     -799.772772  0.001943 -5.407399  0.010323
+   scf:   13     -799.770539     -799.770531     -799.772778  0.000099 -5.407267  0.010691
+   scf:   14     -799.770610     -799.770569     -799.772798  0.000451 -5.407028  0.011423
+   scf:   15     -799.770585     -799.770577     -799.772802  0.000110 -5.407216  0.010579
+   scf:   16     -799.770602     -799.770589     -799.772809  0.000176 -5.407476  0.008799
+   scf:   17     -799.770639     -799.770613     -799.772826  0.000395 -5.407395  0.007180
+   scf:   18     -799.770660     -799.770635     -799.772840  0.000408 -5.406991  0.006168
+   scf:   19     -799.770717     -799.770672     -799.772857  0.000782 -5.405645  0.003351
+   scf:   20     -799.770678     -799.770675     -799.772858  0.000066 -5.405560  0.003295
+   scf:   21     -799.770705     -799.770689     -799.772861  0.000285 -5.405485  0.002738
+   scf:   22     -799.770692     -799.770691     -799.772861  0.000034 -5.405541  0.002367
+   scf:   23     -799.770692     -799.770692     -799.772861  0.000040 -5.405711  0.001315
+   scf:   24     -799.770692     -799.770692     -799.772862  0.000017 -5.405691  0.001186
+   scf:   25     -799.770695     -799.770693     -799.772862  0.000087 -5.405501  0.000837
 
 SCF Convergence by DM+H criterion
-max |DM_out - DM_in|         :     0.0005332150
-max |H_out - H_in|      (eV) :     0.0007170086
-SCF cycle converged after 17 iterations
+max |DM_out - DM_in|         :     0.0000873201
+max |H_out - H_in|      (eV) :     0.0008370400
+SCF cycle converged after 25 iterations
 
 Using DM_out to compute the final energy and forces
 No. of atoms with KB's overlaping orbs in proc 0. Max # of overlaps:      27     215
 
-siesta: E_KS(eV) =             -781.6072
+siesta: E_KS(eV) =             -799.7707
 
-siesta: E_KS - E_eggbox =      -781.6072
+siesta: E_KS - E_eggbox =      -799.7707
 
 siesta: Atomic forces (eV/Ang):
 ----------------------------------------
-   Tot   -0.000000   -0.000000   -0.000000
+   Tot   -0.000000    0.000000   -0.000000
 ----------------------------------------
    Max    0.000000
    Res    0.000000    sqrt( Sum f_i^2 / 3N )
 ----------------------------------------
    Max    0.000000    constrained
 
-Stress-tensor-Voigt (kbar):       87.69       87.69       89.95       -0.72       -0.55       -0.55
-(Free)E + p*V (eV/cell)     -782.2619
-Target enthalpy (eV/cell)     -781.6094
+Stress-tensor-Voigt (kbar):       81.17       81.17       83.43       -0.71       -0.57       -0.57
+(Free)E + p*V (eV/cell)     -800.3773
+Target enthalpy (eV/cell)     -799.7729
 
 siesta: Program's energy decomposition (eV):
-siesta: Ebs     =       -60.985462
-siesta: Eions   =       711.951410
+siesta: Ebs     =       -61.006133
+siesta: Eions   =       711.951413
 siesta: Ena     =        19.722469
-siesta: Ekin    =       773.216159
-siesta: Enl     =      -475.200681
+siesta: Ekin    =       773.432970
+siesta: Enl     =      -475.582440
 siesta: Eso     =         0.000000
 siesta: Eldau   =         0.000000
-siesta: DEna    =         3.162169
-siesta: DUscf   =         0.186041
+siesta: DEna    =         3.146298
+siesta: DUscf   =         0.184217
 siesta: DUext   =         0.000000
-siesta: Exc     =      -390.741995
+siesta: Exc     =      -408.722795
 siesta: eta*DQ  =         0.000000
 siesta: Emadel  =         0.000000
 siesta: Emeta   =         0.000000
 siesta: Emolmec =         0.000000
 siesta: Ekinion =         0.000000
-siesta: Eharris =      -781.607256
-siesta: Etot    =      -781.607249
-siesta: FreeEng =      -781.609406
+siesta: Eharris =      -799.770695
+siesta: Etot    =      -799.770693
+siesta: FreeEng =      -799.772862
 
 siesta: Final energy (eV):
-siesta:  Band Struct. =     -60.985462
-siesta:       Kinetic =     773.216159
-siesta:       Hartree =      86.991921
+siesta:  Band Struct. =     -61.006133
+siesta:       Kinetic =     773.432970
+siesta:       Hartree =      87.032513
 siesta:       Eldau   =       0.000000
 siesta:       Eso     =       0.000000
 siesta:    Ext. field =       0.000000
-siesta:   Exch.-corr. =    -390.741995
-siesta:  Ion-electron =    -819.148117
+siesta:   Exch.-corr. =    -408.722795
+siesta:  Ion-electron =    -819.588165
 siesta:       Ion-ion =    -431.925217
 siesta:       Ekinion =       0.000000
-siesta:         Total =    -781.607249
-siesta:         Fermi =      -5.397753
+siesta:         Total =    -799.770693
+siesta:         Fermi =      -5.405501
 
 siesta: Stress tensor (static) (eV/Ang**3):
-siesta:     0.054731   -0.000451   -0.000342
-siesta:    -0.000451    0.054731   -0.000342
-siesta:    -0.000342   -0.000342    0.056142
+siesta:     0.050664   -0.000441   -0.000353
+siesta:    -0.000441    0.050664   -0.000353
+siesta:    -0.000353   -0.000353    0.052075
 
 siesta: Cell volume =         11.819952 Ang**3
 
 siesta: Pressure (static):
 siesta:                Solid            Molecule  Units
-siesta:          -0.00060122         -0.00060122  Ry/Bohr**3
-siesta:          -0.05520167         -0.05520167  eV/Ang**3
-siesta:         -88.44377844        -88.44377844  kBar
-(Free)E+ p_basis*V_orbitals  =        -781.011379
-(Free)Eharris+ p_basis*V_orbitals  =        -781.011386
+siesta:          -0.00055692         -0.00055692  Ry/Bohr**3
+siesta:          -0.05113442         -0.05113442  eV/Ang**3
+siesta:         -81.92725793        -81.92725793  kBar
+(Free)E+ p_basis*V_orbitals  =        -799.174835
+(Free)Eharris+ p_basis*V_orbitals  =        -799.174837
 
-siesta: Total spin polarization (Qup-Qdown) =    2.270971
->> End of run:  28-JUL-2017  12:07:17
+siesta: Total spin polarization (Qup-Qdown) =    2.299438
+>> End of run:   8-AUG-2017   9:36:52
