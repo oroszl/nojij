@@ -51,6 +51,30 @@ def make_contour(emin=-20,emax=0.0,enum=42,p=150):
     cont.enum = enum
         
     return cont
+
+def make_kset(dirs='xyz',NUMK=20):
+    '''
+    Simple k-grid generator. Depending on the value of the dirs
+    argument k sampling in 1,2 or 3 dimensions is generated.
+    If dirs argument does not contain either of x,y or z
+    a kset of a single k-pont at the origin is returend.
+    '''
+    if not(sum([d in dirs for d in 'xyz'])):
+        return array([[0,0,0]])
+        
+    kran=len(dirs)*[np.linspace(0,1,NUMK,endpoint=False)]
+    mg=meshgrid(*kran)
+    dirsdict=dict()
+    
+    for d in enumerate(dirs):
+        dirsdict[d[1]]=mg[d[0]].flatten()
+    for d in 'xyz':
+        if not(d in dirs):
+            dirsdict[d]=0*dirsdict[dirs[0]]
+    kset = np.array([dirsdict[d] for d in 'xyz']).T
+
+    return kset
+
 #----------------------------------------------------------------------
 
 start = timer()
@@ -65,6 +89,7 @@ parser.add_argument('--output'  , dest = 'outfile', required = True             
 parser.add_argument('--Ebot'    , dest = 'Ebot'   , default  = -20.0     , type=float, help = 'Bottom energy of the contour')
 parser.add_argument('--npairs'  , dest = 'npairs' , default  = 1         , type=int  , help = 'Number of unitcell pairs in each direction for Jij calculation')
 parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = False                 , help = 'Use tqdm for progressbars or not')
+parser.add_argument('--kdirs'   , dest = 'kdirs'  , default  = 'xyz'                 , help = 'Definition of k-space dimensionality')
 args = parser.parse_args()
 #----------------------------------------------------------------------
 
@@ -88,10 +113,7 @@ dh.sov = dh.tocsr(2).toarray().reshape(dh.no,dh.n_s,dh.no).transpose(0,2,1).asty
 #----------------------------------------------------------------------
 
 # generate k space sampling
-NUMK = args.kset # INPUT
-kran = np.linspace(0,1,NUMK,endpoint=False)
-kx,ky,kz = np.meshgrid(kran,kran,kran)
-kset = np.array([kx.flatten(),ky.flatten(),kz.flatten()]).T
+kset=make_kset(dirs=args.kdirs,NUMK=args.kset)
 wk = 1/len(kset) # weight of a kpoint in BZ integral
 kpcs = np.array_split(kset,size)
 if 'k' in args.usetqdm:
@@ -153,9 +175,9 @@ else:
 # onsite of the origin supercell
 orig_indx=np.arange(0,dh.no)+dh.sc_index([0,0,0])*dh.no
 # spin up
-uc_up    = dh.tocsr(dh.UP   )[:,orig_indx].toarray() 
+uc_up    = dh.tocsr(dh.UP   )[:,orig_indx].toarray()
 # spin down
-uc_down  = dh.tocsr(dh.DOWN )[:,orig_indx].toarray() 
+uc_down  = dh.tocsr(dh.DOWN )[:,orig_indx].toarray()
 Hs=[]
 # get number of atoms in the unit cell
 for i in range(len(dh.atoms)):
