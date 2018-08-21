@@ -60,10 +60,10 @@ def make_kset(dirs='xyz',NUMK=20):
     a kset of a single k-pont at the origin is returend.
     '''
     if not(sum([d in dirs for d in 'xyz'])):
-        return array([[0,0,0]])
+        return np.array([[0,0,0]])
         
     kran=len(dirs)*[np.linspace(0,1,NUMK,endpoint=False)]
-    mg=meshgrid(*kran)
+    mg=np.meshgrid(*kran)
     dirsdict=dict()
     
     for d in enumerate(dirs):
@@ -88,7 +88,7 @@ parser.add_argument('--input'   , dest = 'infile' , required = True             
 parser.add_argument('--output'  , dest = 'outfile', required = True                  , help = 'Output file name')
 parser.add_argument('--Ebot'    , dest = 'Ebot'   , default  = -20.0     , type=float, help = 'Bottom energy of the contour')
 parser.add_argument('--npairs'  , dest = 'npairs' , default  = 1         , type=int  , help = 'Number of unitcell pairs in each direction for Jij calculation')
-parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = False                 , help = 'Use tqdm for progressbars or not')
+parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = 'not '                , help = 'Use tqdm for progressbars or not')
 parser.add_argument('--kdirs'   , dest = 'kdirs'  , default  = 'xyz'                 , help = 'Definition of k-space dimensionality')
 args = parser.parse_args()
 #----------------------------------------------------------------------
