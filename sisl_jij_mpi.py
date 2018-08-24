@@ -75,6 +75,35 @@ def make_kset(dirs='xyz',NUMK=20):
 
     return kset
 
+def make_atran(nauc,dirs='xyz',dist=1):
+    '''
+    Simple pair generator. Depending on the value of the dirs
+    argument sampling in 1,2 or 3 dimensions is generated.
+    If dirs argument does not contain either of x,y or z
+    a single pair is returend.
+    '''
+    if not(sum([d in dirs for d in 'xyz'])):
+        return (0,0,[1,0,0])
+        
+    dran=len(dirs)*[np.arange(-dist,dist+1)]
+    mg=np.meshgrid(*dran)
+    dirsdict=dict()
+    
+    for d in enumerate(dirs):
+        dirsdict[d[1]]=mg[d[0]].flatten()
+    for d in 'xyz':
+        if not(d in dirs):
+            dirsdict[d]=0*dirsdict[dirs[0]]
+            
+    ucran = np.array([dirsdict[d] for d in 'xyz']).T
+    atran=[]
+    for i,j in list(product(range(nauc),repeat=2)):
+        for u in ucran:
+            if (abs(i-j)+sum(abs(u)))>0:
+                atran.append((i,j,list(u)))
+
+    return atran
+
 #----------------------------------------------------------------------
 
 start = timer()
@@ -82,14 +111,15 @@ start = timer()
 # Some input parsing
 parser = argparse.ArgumentParser()
 parser.add_argument('--kset'    , dest = 'kset'   , default  = 2         , type=int  , help = 'k-space resolution of Jij calculation')
+parser.add_argument('--kdirs'   , dest = 'kdirs'  , default  = 'xyz'                 , help = 'Definition of k-space dimensionality')
 parser.add_argument('--eset'    , dest = 'eset'   , default  = 42        , type=int  , help = 'Number of energy points on the contour')
 parser.add_argument('--eset-p'  , dest = 'esetp'  , default  = 10        , type=int  , help = 'Parameter tuning the distribution on the contour')
 parser.add_argument('--input'   , dest = 'infile' , required = True                  , help = 'Input file name')
 parser.add_argument('--output'  , dest = 'outfile', required = True                  , help = 'Output file name')
 parser.add_argument('--Ebot'    , dest = 'Ebot'   , default  = -20.0     , type=float, help = 'Bottom energy of the contour')
 parser.add_argument('--npairs'  , dest = 'npairs' , default  = 1         , type=int  , help = 'Number of unitcell pairs in each direction for Jij calculation')
-parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = 'not '                , help = 'Use tqdm for progressbars or not')
-parser.add_argument('--kdirs'   , dest = 'kdirs'  , default  = 'xyz'                 , help = 'Definition of k-space dimensionality')
+parser.add_argument('--adirs'   , dest = 'adirs'  , default  = False                 , help = 'Definition of pair directions')
+parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = 'not'                 , help = 'Use tqdm for progressbars or not')
 args = parser.parse_args()
 #----------------------------------------------------------------------
 
@@ -119,35 +149,15 @@ kpcs = np.array_split(kset,size)
 if 'k' in args.usetqdm:
     kpcs[root_node] = tqdm.tqdm(kpcs[root_node],desc='k loop')
 #----------------------------------------------------------------------
-
 # generate pairs
-NPAIRS = args.npairs # INPUT
-if NPAIRS == 0:
-    neibrange = np.arange(0,2);
-    [xi,yi,zi] = np.meshgrid(neibrange,0,0);
-else:
-    neibrange = np.arange(-NPAIRS,NPAIRS+1);
-    [xi,yi,zi] = np.meshgrid(neibrange,neibrange,neibrange);
-neigh_uc_list = np.array([xi.flatten(),yi.flatten(),zi.flatten()]).T
-
-pairs = [] # we are going to collect usefull informations regarding the pairs in this list
-           # each pair is going to have a dict 
-
-for uc in neigh_uc_list:    
-    uc=np.array(uc)
-    uc.shape=(-1,)   
-    if np.allclose(uc,[0,0,0]):
-        # in the middle unit cell only nonequivalent neighbors are defined
-        atran = permutations(range(len(dh.atoms)),2)
-    else:
-        # if unit cells are further apart all pairs are calculated
-        atran = product(range(len(dh.atoms)),repeat=2)
-        
-    for i,j in atran:
-        pairs.append(dict(
+args.adirs = args.adirs if args.adirs else args.kdirs # Take pair directions for k directions if adirs is not set
+atran=make_atran(len(dh.atoms),args.adirs,dist=args.npairs) # definition of pairs in terms of integer coordinates refering to unicell distances and atomic positions       
+pairs=[]
+for i,j,uc in atran:
+    pairs.append(dict(
         offset = uc,    # lattice vector offset between the unitcells the two atoms are
         aiij   = [i,j], # indecies of the atoms in the unitcell
-        noij   = [dh.atoms[i].orbs,dh.atoms[j].orbs], # number of orbitals on the appropriate atoms
+        noij   = [dh.atoms.orbitals[i],dh.atoms.orbitals[j]], # number of orbitals on the appropriate atoms
         slij   = [slice( *(lambda x:[min(x),max(x)+1])(dh.a2o(i,all=True)) ),  # slices for 
                   slice( *(lambda x:[min(x),max(x)+1])(dh.a2o(j,all=True)) )], # appropriate orbitals           
         rirj   = [dh.axyz()[i],dh.axyz()[j]], # real space vectors of atoms in the unit cell
