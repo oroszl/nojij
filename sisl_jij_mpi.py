@@ -120,6 +120,7 @@ parser.add_argument('--Ebot'    , dest = 'Ebot'   , default  = -20.0     , type=
 parser.add_argument('--npairs'  , dest = 'npairs' , default  = 1         , type=int  , help = 'Number of unitcell pairs in each direction for Jij calculation')
 parser.add_argument('--adirs'   , dest = 'adirs'  , default  = False                 , help = 'Definition of pair directions')
 parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = 'not'                 , help = 'Use tqdm for progressbars or not')
+parser.add_argument('--cutoff'  , dest = 'cutoff' , default  = 100                   , help = 'Real space cutoff for pair generation in Angs')
 args = parser.parse_args()
 #----------------------------------------------------------------------
 
@@ -154,7 +155,8 @@ args.adirs = args.adirs if args.adirs else args.kdirs # Take pair directions for
 atran=make_atran(len(dh.atoms),args.adirs,dist=args.npairs) # definition of pairs in terms of integer coordinates refering to unicell distances and atomic positions       
 pairs=[]
 for i,j,uc in atran:
-    pairs.append(dict(
+    if np.dot(uc,dh.cell)<args.cutoff:
+        pairs.append(dict(
         offset = uc,    # lattice vector offset between the unitcells the two atoms are
         aiij   = [i,j], # indecies of the atoms in the unitcell
         noij   = [dh.atoms.orbitals[i],dh.atoms.orbitals[j]], # number of orbitals on the appropriate atoms
