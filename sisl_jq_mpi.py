@@ -71,8 +71,8 @@ dh.hup = dh.tocsr(0).toarray().reshape(dh.no,dh.n_s,dh.no).transpose(0,2,1)
 dh.hdo = dh.tocsr(1).toarray().reshape(dh.no,dh.n_s,dh.no).transpose(0,2,1)
 dh.sov = dh.tocsr(2).toarray().reshape(dh.no,dh.n_s,dh.no).transpose(0,2,1)
 dh.hup = dh.hup.astype('complex128')
-dh.hdo = dh.hup.astype('complex128')
-dh.sov = dh.hup.astype('complex128')
+dh.hdo = dh.hdo.astype('complex128')
+dh.sov = dh.sov.astype('complex128')
 #----------------------------------------------------------------------
 
 # generate k space sampling
