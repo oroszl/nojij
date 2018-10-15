@@ -21,7 +21,7 @@ class args: pass
 args.kset=10
 args.eset=42
 args.esetp=10000
-args.infile='nojij/SIESTA_run/Ni/SIESTA/Ni.nc'
+args.infile='SIESTA_run/Ni/SIESTA/Ni.nc'
 args.outfile='/dev/null'
 args.Ebot=-20 # based on the inspection of the spectrum
 
