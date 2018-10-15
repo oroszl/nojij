@@ -1,0 +1,61 @@
+SystemName       hcp Co ferro LDA   # Descriptive name of the system
+SystemLabel            Co           # Short name for naming files
+
+# Species and atoms
+NumberOfSpecies        1       
+NumberOfAtoms          2      
+%block ChemicalSpeciesLabel
+  1  27  Co
+%endblock ChemicalSpeciesLabel
+
+# Basis
+PAO.EnergyShift       50 meV
+PAO.BasisSize         DZP
+
+# experimental lattice parameters from webelements
+LatticeConstant       2.5071 Ang  
+%block LatticeParameters
+ 1   1   1.62319014  90  90  60 
+%endblock LatticeParameters
+# Atomic coordinates
+AtomicCoordinatesFormat     Fractional    
+%block AtomicCoordinatesAndAtomicSpecies
+ 0.000000000000    0.000000000000    0.000000000000  1 
+ 0.333333333333    0.333333333333    0.500000000000  1
+%endblock AtomicCoordinatesAndAtomicSpecies
+
+KgridCutoff          50. Ang
+xc.functional         LDA           # Exchange-correlation functional
+xc.authors            CA           # Exchange-correlation version
+
+SpinPolarized           T          # Logical parameters are: yes or no
+NonCollinearSpin        F
+SpinOrbit               F
+
+MeshCutoff           500. Ry        # Mesh cutoff. real space mesh 
+
+# SCF options
+MaxSCFIterations      200           # Maximum number of SCF iter
+DM.MixingWeight       0.1           # New DM amount for next SCF cycle
+DM.Tolerance          1.d-4         # Tolerance in maximum difference
+                                    # between input and output DM
+DM.UseSaveDM          true          # to use continuation files
+DM.NumberPulay         3
+SolutionMethod        diagon        # OrderN or Diagon
+ElectronicTemperature  1 K       # Temp. for Fermi smearing
+
+# MD options
+MD.TypeOfRun           cg           # Type of dynamics:
+MD.NumCGsteps           0           # Number of CG steps for 
+                                    #   coordinate optimization
+MD.MaxCGDispl          0.1 Ang      # Maximum atomic displacement 
+                                    #   in one CG step (Bohr)
+MD.MaxForceTol         0.04 eV/Ang  # Tolerance in the maximum 
+                                    #   atomic force (Ry/Bohr)
+
+
+# Output options
+WriteMullikenPop      1
+CDF.Save              true
+WriteDMHS.NetCDF      true
+SaveHS                true

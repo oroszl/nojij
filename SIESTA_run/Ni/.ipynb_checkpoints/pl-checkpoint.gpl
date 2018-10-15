@@ -1,0 +1,10 @@
+a=2.49184429690139
+se xl '|r_{ij}|/a'
+se yl 'J_{ij}[meV]'
+se xr [0.7:3.1]
+se grid
+se ter postsc enh col sol 'Times' 25
+se ou 'Ni-jij_SIESTA_vs_KKR.eps'
+p 'SIESTA/Ni.jij-kset-40-eset-42-esetp-10000' u ($1/a):($2*13.6) lt 1 ps 3 tit 'SIESTA',\
+  'kkr' u 1:($2*1000*13.6) tit 'KKR' ps 3 lt 6
+

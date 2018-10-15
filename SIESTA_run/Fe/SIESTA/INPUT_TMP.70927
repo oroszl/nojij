@@ -1,0 +1,39 @@
+SystemName       bcc Fe ferro GGA   # Descriptive name of the system
+SystemLabel            Fe           # Short name for naming files
+# Species and atoms
+NumberOfSpecies        1
+NumberOfAtoms          1
+%block ChemicalSpeciesLabel
+  1  26  Fe
+%endblock ChemicalSpeciesLabel
+# Basis
+PAO.BasisSize         DZP
+PAO.EnergyShift 0.01 Ry
+# Lattice and geometry
+LatticeConstant       2.87 Ang
+%block LatticeVectors
+ 1.00000   0.000000  0.000000
+ 0.00000   1.000000  0.000000
+ 0.50000   0.500000  0.500000
+%endblock LatticeVectors
+# Atomic coordinates
+AtomicCoordinatesFormat     ScaledCartesian
+%block AtomicCoordinatesAndAtomicSpecies
+  0.000000000000    0.000000000000    0.000000000000  1
+%endblock AtomicCoordinatesAndAtomicSpecies
+KgridCutoff          50. Ang
+# SCF options
+DM.MixingWeight       0.1           # New DM amount for next SCF cycle
+DM.Tolerance          1.d-3         # Tolerance in maximum difference
+DM.NumberPulay         3
+MaxSCFIterations 200
+SolutionMethod        diagon        # OrderN or Diagon
+ElectronicTemperature  10 meV       # Temp. for Fermi smearing
+xc.functional         GGA           # Exchange-correlation functional
+xc.authors            PBE           # Exchange-correlation version
+SpinPolarized         true          # Logical parameters are: yes or no
+MeshCutoff           2000. Ry        # Mesh cutoff. real space mesh
+# Output options
+CDF.Save              true
+WriteDMHS.NetCDF      true
+SaveHS                true
