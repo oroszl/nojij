@@ -63,4 +63,4 @@ for ze in tqdm.tqdm(eran):
 j0z=np.array(j0z)
 J0=np.trapz(np.imag(j0z*cont.we)/(2*np.pi))*1000*sisl.unit_convert('eV','Ry')
 
-print('')
+print(args.kset,J0)
