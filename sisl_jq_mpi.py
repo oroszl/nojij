@@ -26,7 +26,7 @@ parser.add_argument('--kdirs'   , dest = 'kdirs'  , default  = 'xyz'
 parser.add_argument('--eset'    , dest = 'eset'   , default  = 42        ,
  type=int  , help = 'Number of energy points on the contour')
 
-parser.add_argument('--eset-p'  , dest = 'esetp'  , default  = 10        ,
+parser.add_argument('--eset-p'  , dest = 'esetp'  , default  = 10000     ,
  type=int  , help = 'Parameter tuning the distribution on the contour')
 
 parser.add_argument('--input'   , dest = 'infile' , required = True
@@ -85,11 +85,15 @@ if 'k' in args.usetqdm:
 # generate q-vectors
 # TODO: sofar ony single atom in the unitcell is implemented!!
 # TODO: sofar direction of the qpath is limited!!
+# generation of q-vectors strictly from points of the k-sampling !
+
 qdir=np.array([[0],[0],[0]])
 qdir[args.qdir,0]=1
-qvecs=(np.linspace(-args.qmax,args.qmax,args.qnum)*qdir).T
+kran=np.linspace(0,1,args.kset,endpoint=False)
+qran=np.sort(np.hstack((kran[:min(int(args.qnum/2),args.kset)],-kran[1:min(int(args.qnum/2),args.kset)])))
+qvecs=(qran*qdir).T
 qs=[]
-for qi in range(args.qnum):
+for qi in range(len(qran)):
     i,j=0,0
     qs.append(dict(
         aiij   = [i,j], # indecies of the atoms in the unitcell
