@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.special import roots_legendre
+from itertools import permutations, product
 # define some useful functions
 def hsk(dh,k=(0,0,0)):
     '''
