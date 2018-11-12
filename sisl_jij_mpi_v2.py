@@ -27,6 +27,7 @@ parser.add_argument('--npairs'  , dest = 'npairs' , default  = 1         , type=
 parser.add_argument('--adirs'   , dest = 'adirs'  , default  = False                 , help = 'Definition of pair directions')
 parser.add_argument('--use-tqdm', dest = 'usetqdm', default  = 'not'                 , help = 'Use tqdm for progressbars or not')
 parser.add_argument('--cutoff'  , dest = 'cutoff' , default  = 100.0     , type=float, help = 'Real space cutoff for pair generation in Angs')
+parser.add_argument('--pairfile', dest = 'pairfile', default  = False    ,             help = 'File to read pair information')
 args = parser.parse_args()
 #----------------------------------------------------------------------
 
@@ -50,16 +51,34 @@ dh.sov = dh.tocsr(2).toarray().reshape(dh.no,dh.n_s,dh.no).transpose(0,2,1).asty
 #----------------------------------------------------------------------
 
 # generate k space sampling
-kset=make_kset(dirs=args.kdirs,NUMK=args.kset)
+kset = make_kset(dirs=args.kdirs,NUMK=args.kset)
 wk = 1/len(kset) # weight of a kpoint in BZ integral
 kpcs = np.array_split(kset,size)
 if 'k' in args.usetqdm:
     kpcs[root_node] = tqdm.tqdm(kpcs[root_node],desc='k loop')
 #----------------------------------------------------------------------
-# generate pairs
-args.adirs = args.adirs if args.adirs else args.kdirs # Take pair directions for k directions if adirs is not set
-atran=make_atran(len(dh.atoms),args.adirs,dist=args.npairs) # definition of pairs in terms of integer coordinates refering to unicell distances and atomic positions       
-pairs=[]
+# define pairs
+
+if args.pairfile:
+# if pair file is specified read in pair information from pairfile
+    if rank == root_node:
+        # read in pair on root node file in a format of five integer columns
+        # first two integers define sublattice 
+        # second three define distance vectors of unitcells
+        dummy = np.loadtxt(args.pairfile,dtype=int)
+        atran = [(dummy[p,0],dummy[p,1],[ dummy[p,2],dummy[p,3],dummy[p,4] ]) for p in range(len(dummy))]
+    else:
+        atran = None
+    # syncronize atran over all nodes
+    atran = comm.bcast(atran, root=root_node)
+else:
+# if pairfile is not specified generate pair as defined by npairs and adirs    
+    # Take pair directions for k directions if adirs is not set
+    args.adirs = args.adirs if args.adirs else args.kdirs 
+    # definition of pairs in terms of integer coordinates refering 
+    # to unicell distances and atomic positions
+    atran = make_atran(len(dh.atoms),args.adirs,dist=args.npairs) 
+pairs = []
 for i,j,uc in atran:
     if nl.norm(np.dot(uc,dh.cell)) < args.cutoff:
         pairs.append(dict(
@@ -77,6 +96,8 @@ for i,j,uc in atran:
 
 if rank == root_node:
     print('Number of pairs beeing calculated: ',len(pairs))
+
+comm.Barrier()
 #----------------------------------------------------------------------
 
 # make energy contour 
@@ -136,7 +157,8 @@ if rank==root_node:
         pair['Jijz']=np.trace((Hs[i] @ pair['Guij'] ) @ (Hs[j] @ pair['Gdji'] ),axis1=1,axis2=2)
         # evaluation of the contour integral
         pair['Jij']  = np.trapz(np.imag(pair['Jijz']*cont.we)/(2*np.pi))
-    end = timer()        
+    end = timer()     
+    
 #----------------------------------------------------------------------
 # and saveing output of the calculation
     np.savetxt(args.outfile,
