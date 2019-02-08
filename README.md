@@ -8,4 +8,5 @@ The package depends on some python packages that can be simply installed e.g. th
 - [mpi4py](http://pythonhosted.org/mpi4py/) for parallel BZ integrals
 - [tqdm](https://github.com/tqdm/tqdm) for nice progressbars (not really necessary but fun) 
 
+[![DOI](https://zenodo.org/badge/75478576.svg)](https://zenodo.org/badge/latestdoi/75478576)
 
