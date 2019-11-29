@@ -141,8 +141,9 @@ for k in kpcs[rank]:
     Gkd = nl.inv(SK*eran.reshape(args.eset,1,1)-HKD)
     for pair in pairs:
         phase=np.exp(1j*np.dot(np.dot(k,dh.rcell),pair['Rij']))
-        pair['Guij_tmp'] += Gku*phase*wk
-        pair['Gdji_tmp'] += Gkd/phase*wk
+        si,sj=pair['slij']
+        pair['Guij_tmp'] += Gku[:,si,sj]*phase*wk
+        pair['Gdji_tmp'] += Gkd[:,sj,si]/phase*wk
 
 # summ reduce partial results of mpi nodes
 for pair in pairs:
