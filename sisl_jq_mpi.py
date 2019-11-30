@@ -87,14 +87,15 @@ if 'k' in args.usetqdm:
 # TODO: sofar direction of the qpath is limited!!
 # generation of q-vectors strictly from points of the k-sampling !
 
-qdir=np.array([[0],[0],[0]])
-qdir[args.qdir,0]=1
-kran=np.linspace(0,1,args.kset,endpoint=False)
-qran=np.sort(np.hstack((kran[:min(int(args.qnum/2),args.kset)],-kran[1:min(int(args.qnum/2),args.kset)])))
-qvecs=(qran*qdir).T
-qs=[]
+qdir = np.array([[0],[0],[0]])
+qdir[args.qdir,0] = 1
+kran = np.linspace(0,1,args.kset,endpoint=False)
+qran = np.sort(np.hstack((kran[ :min(int(args.qnum/2),args.kset)],
+                         -kran[1:min(int(args.qnum/2),args.kset)])))
+qvecs = (qran*qdir).T
+qs = []
 for qi in range(len(qran)):
-    i,j=0,0
+    i,j = 0,0
     qs.append(dict(
         aiij   = [i,j], # indecies of the atoms in the unitcell
         noij   = [dh.atoms.orbitals[i],dh.atoms.orbitals[j]], # number of orbitals on the appropriate atoms
